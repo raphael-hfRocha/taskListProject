@@ -1,19 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ProgressBar />
+    <AddTask />
+    <TaskList :tasks="tasks"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import bus from "@/bus";
+import ProgressBar from "./components/ProgressBar/index.vue";
+import AddTask from "./components/AddTask/index.vue";
+import TaskList from "./components/TaskList/index.vue";
 
 export default {
-  name: 'App',
+  created() {
+    bus.getTask((tasks) => {
+      this.tasks = tasks;
+    });
+  },
+  name: "App",
   components: {
-    HelloWorld
+    ProgressBar,
+    AddTask,
+    TaskList,
+  },
+  data() {
+    return {
+      tasks: []
+    }
   }
-}
+};
 </script>
 
 <style>
