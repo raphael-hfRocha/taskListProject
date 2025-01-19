@@ -7,6 +7,6 @@ export default new Vue({
         },
         getTask(callback) {
             this.$on('taskAdded', callback)
-        }
+        },
     }
 })

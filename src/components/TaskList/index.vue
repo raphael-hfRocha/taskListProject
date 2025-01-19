@@ -1,27 +1,17 @@
 <template>
   <div id="list">
-    <div class="card" v-for="(item, index) in tasks" :key="index">
-      <button>x</button>
-      <p>{{ item }}</p>
-    </div>
+      <slot></slot>
+      <!-- <slot name="done"></slot> -->
   </div>
 </template>
 
 <script>
 export default {
+  created() {
+    console.log(this.tasks)
+  },
   name: "ListTask",
-  props: {
-    tasks: {
-      type: Array,
-      required: true
-    }
-  },
-  methods: {
-    removeTask() {
-      
-    }
-  },
-  computed: {}
+  computed: {},
 };
 </script>
 
@@ -29,26 +19,37 @@ export default {
 #list {
   width: 100%;
   height: auto;
+  justify-content: center;
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
-
+  margin-top: 30px;
 }
 .card {
+  position: relative;
   width: 450px;
   height: 250px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 57, 57, 0.938);
   border-radius: 5px;
   text-align: center;
+  margin: 20px;
 }
 button {
+  position: absolute;
+  top: 10px;
+  right: 8px;
   border-radius: 10px;
   border: none;
   background-color: #00000046;
   color: white;
-  cursor: pointer
+  cursor: pointer;
+  font-size: 20px;
+}
+p,
+del {
+  font-weight: bold;
+  font-size: 32px;
 }
 </style>

@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <input v-model="description" type="text" placeholder="nova tarefa" />
+  <div class="container">
+    <input
+      v-model="description"
+      type="text"
+      placeholder="nova tarefa"
+      @keyup.enter="taskAdded"
+    />
     <button @click="taskAdded">+</button>
   </div>
 </template>
@@ -13,12 +18,12 @@ export default {
   data() {
     return {
       tasks: [],
-      description: "",
+      description: ""
     };
   },
   methods: {
     taskAdded() {
-      this.tasks.push(this.description);
+      this.tasks.push({ description: this.description, color: 'red', done: false });
       bus.setTask(this.tasks);
       this.description = "";
     },
@@ -27,7 +32,11 @@ export default {
 </script>
 
 <style scoped>
-input {
+.container {
+  position: relative;
+}
+
+.container input {
   width: 80%;
   background-color: transparent;
   padding: 12px 20px;
@@ -37,16 +46,23 @@ input {
   color: white;
   box-sizing: border-box;
 }
-button {
+
+.container button {
+  position: absolute;
   background-color: #4c93af;
   border: none;
   color: white;
   padding: 15px 32px;
   text-align: center;
+  height: 43px;
+  width: 50px;
   text-decoration: none;
-  display: inline-block;
-  font-size: 28px;
-  margin: 4px 2px;
+  border: none;
+  color: white;
+  padding: 0 10px;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 28px;
+  margin-top: 8px;
 }
 </style>

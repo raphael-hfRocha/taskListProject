@@ -1,9 +1,7 @@
 <template>
     <div>
         <h1 align="center">Tarefas</h1>
-        <div class="progress-bar">
-            <p>100%</p>
-        </div>  
+        <slot></slot>
     </div>
 </template>
 

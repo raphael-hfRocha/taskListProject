@@ -1,8 +1,30 @@
 <template>
   <div id="app">
-    <ProgressBar />
+    <ProgressBar>
+      <template v-slot:default>
+        <div class="progress-bar">
+          <p>100%</p>
+        </div>
+      </template>
+    </ProgressBar>
     <AddTask />
-    <TaskList :tasks="tasks"/>
+    <TaskList>
+      <template v-slot:default>
+        <div
+          class="card"
+          v-for="(item, index) in tasks"
+          :key="index"
+          :style="{ backgroundColor: item.color }"
+          @click="changeStatus(index)"
+        >
+          <button @click="taskRemoved(index)">x</button>
+          <p v-if="tasks[index].done === false">{{ item.description }}</p>
+          <del v-if="tasks[index].done === true">
+            <p>{{ item.description }}</p>
+          </del>
+        </div>
+      </template>
+    </TaskList>
   </div>
 </template>
 
@@ -16,6 +38,7 @@ export default {
   created() {
     bus.getTask((tasks) => {
       this.tasks = tasks;
+      console.log(this.tasks);
     });
   },
   name: "App",
@@ -26,19 +49,36 @@ export default {
   },
   data() {
     return {
-      tasks: []
-    }
-  }
+      tasks: [],
+      status: false,
+      selectedTask: null,
+    };
+  },
+  methods: {
+    taskRemoved(index) {
+      this.tasks.splice(index, 1);
+    },
+    changeStatus(index) {
+      if(this.status === false) {
+        this.status = !this.status;
+        this.tasks[index].color = 'green'
+        this.tasks[index].done = true
+      } else {
+        this.status = !this.status;
+        this.tasks[index].color = 'red'
+        this.tasks[index].done = false
+      }
+    },
+  },
 };
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: block;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 240px;
 }
 </style>
