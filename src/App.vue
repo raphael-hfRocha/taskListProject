@@ -59,7 +59,7 @@ export default {
       this.tasks.splice(index, 1);
     },
     changeStatus(index) {
-      if(this.status === false) {
+      if(this.tasks[index].done === false) {
         this.status = !this.status;
         this.tasks[index].color = 'green'
         this.tasks[index].done = true
