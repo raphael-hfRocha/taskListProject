@@ -1,15 +1,11 @@
 <template>
   <div id="list">
-      <slot></slot>
-      <!-- <slot name="done"></slot> -->
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-  created() {
-    console.log(this.tasks)
-  },
   name: "ListTask",
   computed: {},
 };
@@ -40,12 +36,13 @@ button {
   position: absolute;
   top: 10px;
   right: 8px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
   background-color: #00000046;
   color: white;
   cursor: pointer;
   font-size: 20px;
+  font-weight: bold;
 }
 p,
 del {

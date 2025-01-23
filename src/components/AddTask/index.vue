@@ -3,7 +3,7 @@
     <input
       v-model="description"
       type="text"
-      placeholder="nova tarefa"
+      placeholder="Nova tarefa"
       @keyup.enter="taskAdded"
     />
     <button @click="taskAdded">+</button>
@@ -18,12 +18,16 @@ export default {
   data() {
     return {
       tasks: [],
-      description: ""
+      description: "",
     };
   },
   methods: {
     taskAdded() {
-      this.tasks.push({ description: this.description, color: 'red', done: false });
+      this.tasks.push({
+        description: this.description,
+        color: "red",
+        done: false,
+      });
       bus.setTask(this.tasks);
       this.description = "";
     },
@@ -43,6 +47,9 @@ export default {
   border: 2px solid white;
   border-radius: 5px;
   margin: 8px 0;
+  font-size: 22px;
+  color: white;
+  font-weight: bold;
   color: white;
   box-sizing: border-box;
 }
@@ -54,8 +61,8 @@ export default {
   color: white;
   padding: 15px 32px;
   text-align: center;
-  height: 43px;
-  width: 50px;
+  height: 49px;
+  width: 55px;
   text-decoration: none;
   border: none;
   color: white;
@@ -63,6 +70,8 @@ export default {
   cursor: pointer;
   font-weight: bold;
   font-size: 28px;
+  border-radius: 2px;
   margin-top: 8px;
+  transform: translate(-104%, 5%);
 }
 </style>

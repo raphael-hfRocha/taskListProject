@@ -2,9 +2,8 @@
   <div id="app">
     <ProgressBar>
       <template v-slot:default>
-        <div class="progress-bar">
-          <p>100%</p>
-        </div>
+        <div class="progressBarColor" :style="progressBar"></div>
+          <span>{{ width }}%</span>
       </template>
     </ProgressBar>
     <AddTask />
@@ -17,7 +16,7 @@
           :style="{ backgroundColor: item.color }"
           @click="changeStatus(index)"
         >
-          <button @click="taskRemoved(index)">x</button>
+          <button @click="taskRemoved(index)">X</button>
           <p v-if="tasks[index].done === false">{{ item.description }}</p>
           <del v-if="tasks[index].done === true">
             <p>{{ item.description }}</p>
@@ -51,7 +50,7 @@ export default {
     return {
       tasks: [],
       status: false,
-      selectedTask: null,
+      width: 0,
     };
   },
   methods: {
@@ -59,15 +58,30 @@ export default {
       this.tasks.splice(index, 1);
     },
     changeStatus(index) {
-      if(this.status === false) {
+      if (this.tasks[index].done === false) {
         this.status = !this.status;
-        this.tasks[index].color = 'green'
-        this.tasks[index].done = true
+        this.tasks[index].color = "green";
+        this.tasks[index].done = true;
       } else {
         this.status = !this.status;
-        this.tasks[index].color = 'red'
-        this.tasks[index].done = false
+        this.tasks[index].color = "red";
+        this.tasks[index].done = false;
       }
+      this.changeProgressBar();
+    },
+    changeProgressBar() {
+      const totalTasks = this.tasks.length;
+      const completedTasks = this.tasks.filter((item) => item.done).length;
+
+      this.width = Math.round((completedTasks / totalTasks) * 100);
+    },
+  },
+  computed: {
+    progressBar() {
+      return {
+        width: this.width + "%",
+        backgroundColor: "rgba(172, 255, 47, 0.637)",
+      };
     },
   },
 };
